@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+    <link rel="stylesheet" href="/../css/styleForLogin.css">
+</head>
+<body>
+<div id="login">
+    <h2><span class="fontawesome-lock"></span>Авторизация</h2>
+    <form class="f" action="/process_login" method="post">
+
+        <fieldset>
+            <p><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"></p>
+            <p><label for="name">Логин:</label></p>
+            <p><input type="text" name="username" id="name" placeholder="Логин" ></p>
+
+            <p><label for="password">Пароль:</label></p>
+            <p><input type="password" name="password" id="password" placeholder="Пароль" ></p>
+
+            <p><input type="submit" id="enter" value="ВОЙТИ"><a style="padding-left: 100px" th:href="@{/auth/registration}">Зарегестрироваться</a></p>
+            <div th:if="${param.error}">Неправильные логин или пароль</div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

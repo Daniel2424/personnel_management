@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Refresh" content="300" />
+
+    <title>MessageAdminWith</title>
+</head>
+<body>
+<section th:if="${role} == 'ROLE_ADMIN'">
+    <form th:action="@{/messages/send/{id}(id = ${idPerson})}" th:method="POST" th:object="${mes}">
+
+        <label for="work_message" th:text="'Сообщение пользователю: ' + ${name}"> </label>
+        <input type="text" th:field="*{work_message}" id="work_message">
+        <input type="submit" value="Отправить">
+    </form>
+    <a th:href="@{/}">На главную</a>
+
+    <hr>
+    <br>
+</section>
+<section th:if="${role} == 'ROLE_ADMIN'">
+
+    <div th:each="message: ${mes_admin}">
+        <p th:text="${message.getDate()} + '( от '+ ${message.getMessage_sender()}+ ' ): ' + ${message.getWork_message()}"></p>
+        <hr>
+        <br>
+
+    </div>
+
+</section>
+</body>
+</html>

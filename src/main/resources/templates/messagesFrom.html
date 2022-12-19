@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Refresh" content="300" />
+
+    <title>Title</title>
+</head>
+<body>
+<section th:if="${role} == 'ROLE_ADMIN'">
+    <form th:action="@{/messages/send}" th:method="POST" th:object="${mes}">
+        <label for="person">Выберите человека:</label>
+        <select th:object="${person}" th:field="*{id}" id="person">
+            <option th:each="person: ${allPerson}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+        </select>
+        <label for="messag">Сообщение пользователю: </label>
+        <input type="text" th:field="*{work_message}" id="messag">
+        <input type="submit" value="Отправить">
+    </form>
+    <form th:action="@{/messages/with}" th:method="GET">
+        <label for="pers">Выберите человека:</label>
+        <select th:object="${person}" th:field="*{id}" id="pers">
+            <option th:each="person: ${allPerson}" th:value="${person.getId()}" th:text="${person.getName()}"></option>
+        </select>
+        <input type="submit" value="Перейти в чат с этим пользователем">
+    </form>
+    <a th:href="@{/}">На главную</a>
+
+    <hr>
+    <br>
+</section>
+<section th:if="${role} == 'ROLE_EMPLOYEE'">
+    <form th:action="@{/messages/send-user}" th:method="POST" th:object="${mes}">
+
+        <label for="work_message">Сообщение админу: </label>
+        <input type="text" th:field="*{work_message}" id="work_message">
+        <input type="submit" value="Отправить">
+    </form>
+    <a th:href="@{/}">На главную</a>
+    <hr>
+    <br>
+</section>
+
+<section th:if="${role} == 'ROLE_EMPLOYEE'">
+
+    <div th:each="message: ${mes_user}">
+        <p th:text="${message.getDate()} + '( от '+ ${message.getMessage_sender()}+ ' ): ' + ${message.getWork_message()}"></p>
+        <hr>
+        <br>
+
+    </div>
+
+</section>
+<section th:if="${role} == 'ROLE_ADMIN'">
+
+    <div th:each="message: ${mes_admin}">
+        <p th:text="${message.getDate()} + '( от '+ ${message.getMessage_sender()}+ ' ): ' + ${message.getWork_message()}"></p>
+        <hr>
+        <br>
+
+    </div>
+
+</section>
+</body>
+</html>

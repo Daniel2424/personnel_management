@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnel_management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+
+    <a th:href="@{/}" class="logo">.Company</a>
+
+    <nav class="navbar">
+        <a href="#about">О нас</a>
+        <a th:href="@{/news}">Новости</a>
+    </nav>
+
+
+    <div class="icons">
+        <a th:if="'ROLE_ADMIN' == ${role} or 'ROLE_EMPLOYEE' == ${role}" th:href="@{/messages}" class="fab fa-telegram"></a>
+
+        <a th:if="'anonymousUser' != ${person}" th:href="@{/profile/}" class="fas fa-user" th:text="${person}"></a>
+        <a th:if="'anonymousUser' == ${person}" th:href="@{/profile/}" class="fas fa-user" > Вы не авторизованы</a>
+    </div>
+    <div>
+        <form th:method="POST" th:action="@{/logout}">
+            <input class="end" sec:authorize="isAuthenticated()" type="submit" value="Выйти">
+        </form>
+        <form th:method="POST" th:action="@{/logout}">
+            <input class="end" sec:authorize="isAnonymous()" type="submit" value="Войти">
+        </form>
+    </div>
+</header>
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>.Company</h3>
+        <span> Взгляни в будущее </span>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae laborum ut minus corrupti dolorum dolore
+            assumenda iste voluptate dolorem pariatur.</p>
+        <a href="#" class="btn">Подробности</a>
+    </div>
+
+</section>
+
+<section class="about" id="about">
+
+    <h1 class="heading"><span> О </span> нас </h1>
+
+    <div class="row">
+
+        <div class="video-container">
+            <img src="/img/new-york-2.jpg" alt="gg">
+            <h3>Быстро, качественно, дешево</h3>
+        </div>
+
+        <div class="content">
+            <h3>Почему выбирают нас?</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem cumque sit nemo pariatur corporis
+                perspiciatis aspernatur a ullam repudiandae autem asperiores quibusdam omnis commodi alias repellat
+                illum, unde optio temporibus.</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium ea est commodi incidunt magni quia
+                molestias perspiciatis, unde repudiandae quidem.</p>
+            <a href="#" class="btn">читать больше</a>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="icons-container">
+
+    <div class="icons">
+        <img src="img/icon-1.png" alt="">
+        <div class="info">
+            <h3>Бесплатная доставка</h3>
+            <span>На все заказы</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="img/icon-2.png" alt="">
+        <div class="info">
+            <h3>5 дней возврат средств</h3>
+            <span>Гарантия возврата денег</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="img/icon-3.png" alt="">
+        <div class="info">
+            <h3>Предложения & подарки</h3>
+            <span>На все заказы</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="img/icon-4.png" alt="">
+        <div class="info">
+            <h3>Безопасные платежи</h3>
+            <span>защищено PayPal</span>
+        </div>
+    </div>
+
+</section>
+
+
+<a href=""></a>
+<section id="news">
+
+    <h1 class="heading"><span> Новости </span>  </h1>
+    <div class="scroll">
+        <div class="wow"  th:each="news_obj : ${all_news}">
+
+            <h1 th:text="${news_obj.getTopic()} " ></h1>
+            <p th:text="${news_obj.getNews()}"></p><br>
+            <p th:text="${news_obj.getNews_date()}"></p>
+            <p th:text="${news_obj.getPresented()}"></p>
+            <a th:href="@{/news/{id}(id = ${news_obj.getId()})}">читать больше...</a>
+
+
+        </div>
+    </div>
+    <a style="font-size: 2rem" th:href="@{/news}">Читать все новости</a>
+</section>
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>Ссылки</h3>
+            <a href="#">Начало</a>
+            <a href="#">О нас</a>
+            <a href="#">Цветы</a>
+
+        </div>
+
+        <div class="box">
+            <h3>Дополнительные ссылки</h3>
+            <a href="https://vk.com/ruzhkov24">Мой аккаунт</a>
+        </div>
+
+        <div class="box">
+            <h3>Наши офисы</h3>
+            <a href="#">Россия</a>
+            <a href="#">USA</a>
+            <a href="#">Япония</a>
+            <a href="#">Франция</a>
+        </div>
+
+        <div class="box">
+            <h3>Контактная информация</h3>
+            <a href="#">+123-456-7890</a>
+            <a href="#">d.ruzhkov7@gmail.com</a>
+            <a href="#">Moscow - 11111</a>
+            <img src="img/payment.png" alt="">
+        </div>
+    </div>
+</section>
+</body>
+</html>

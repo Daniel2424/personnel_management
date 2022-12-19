@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+
+    <link rel="stylesheet" href="/../css/styleForRegistration.css">
+</head>
+<body>
+<div id="login">
+    <h2><span class="fontawesome-lock"></span>Регистрация</h2>
+    <form class="f" th:action="@{/auth/registration}" th:method="POST" th:object="${person}">
+        <fieldset>
+            <p><label for="name">Введите имя пользователя:</label></p>
+            <p><input type="text" name="name" th:field="*{name}"  id="name" ></p>
+            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Неправильное имя</div>
+            <br>
+
+            <p><label for="yearOfBirth">Введите год рождения:</label></p>
+            <p><input type="text" name="yearOfBirth" th:field="*{yearOfBirth}"   id="yearOfBirth"  ></p>
+            <div style="color:red" th:if="${#fields.hasErrors('yearOfBirth')}" th:errors="*{yearOfBirth}">Неправильное год рождения</div>
+            <br>
+
+            <p><label for="email">Введите Email:</label></p>
+            <p><input type="text" name="email" th:field="*{email}"  id="email" ></p>
+            <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Неправильный Email</div>
+            <br>
+
+            <p><label for="password">Введите Пароль:</label></p>
+            <p><input type="password" name="password" id="password"  ></p>
+            <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Неправильный пароль</div>
+
+            <p><input type="submit" value="Зарегестрироваться"><a style="padding-left: 155px" th:href="@{/auth/login}">Войти</a></p>
+
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>

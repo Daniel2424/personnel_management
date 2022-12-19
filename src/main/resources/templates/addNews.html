@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/news/add}" th:method="POST" th:object="${news_obj}">
+
+    <label for="news">Новость:</label>
+    <input type="text" th:field="*{news}"  id="news" ><br><br>
+
+    <label for="topic">Тема:</label>
+    <input type="text" th:field="*{topic}"  id="topic" ><br><br>
+
+    <label for="presented">Автор статьи:</label>
+    <input type="text" th:field="*{presented}"  id="presented" ><br><br>
+
+
+    <input type="submit" value="Опубликовать новость">
+
+
+</form>
+<a th:href="@{/}">Вернуться на главную</a>
+
+</body>
+</html>
